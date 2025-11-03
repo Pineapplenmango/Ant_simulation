@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build raylib (C++)",
+            "type": "shell",
+            // VIGTIGT: Den fulde sti til kompilatoren
+            "command": "C:/raylib/w64devkit/bin/g++", 
+            "args": [
+                "main.cpp",
+                "-o", "ant_simulation.exe",
+                // Header Path: Hvor ligger raylib.h?
+                "-I", "C:/raylib/raylib/src",
+                // Library Path: Hvor ligger libraylib.a (den dybe sti)
+                "-L", "C:/raylib/w64devkit/x86_64-w64-mingw32/lib",
+                // Nødvendige links
+                "-lraylib",
+                "-lopengl32",
+                "-lgdi32",
+                "-lwinmm",
+                "-Wall",
+                "-std=c++17" 
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
