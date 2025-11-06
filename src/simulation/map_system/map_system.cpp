@@ -52,12 +52,29 @@ void MapSystem::setRessourcePoint(int x, int y)
 
 void MapSystem::addPheromone(int x, int y, float amount)
 {
-    if (y >= 0 && y < (int)cellGrid.size() &&
+   /* if (y >= 0 && y < (int)cellGrid.size() &&
         x >= 0 && x < (int)cellGrid[0].size())
     {
         float v = cellGrid[y][x].getPheromone() + amount;
         cellGrid[y][x].setPheromone(v);
-    }
+    }*/
+
+
+    if (amount <= 0.0f) return;
+
+    Cell& c = getCell(x, y);
+    float p = c.getPheromone();
+
+    // Brug samme cap som i Cell::setPheromone (du har 10.0f der)
+    const float MAX = 2.0f; // hold dette identisk med cap i setPheromone
+
+    // "Soft saturation": jo tættere på MAX, desto mindre ekstra effekt
+    // p_new = p + amount * (1 - p/MAX)
+    float newP = p + amount * (1.0f - p / MAX);
+
+    c.setPheromone(newP); // setPheromone sørger stadig for clamp [0, MAX]
+
+
 
 }
 
@@ -89,7 +106,7 @@ std::vector<std::pair<int,int>> MapSystem::getNeighbors(int x, int y)
 void MapSystem::updateAll()
 {
 
-     const float evaporationRate = 0.001f; // justér efter behov (1% pr. frame fx)
+     const float evaporationRate = 0.02f; // justér efter behov (1% pr. frame fx)
 
     for (auto& row : cellGrid)
     {
@@ -104,3 +121,4 @@ void MapSystem::updateAll()
         }
     }
 }
+

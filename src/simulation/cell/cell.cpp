@@ -14,7 +14,16 @@ Cell::~Cell()
 
 void Cell::setPheromone(float value) {
 
-    pheromone = (value < 0.0f) ? 0.0f : value; //feromon kan ikke være negativt
+   // pheromone = (value < 0.0f) ? 0.0f : value; //feromon kan ikke være negativt
+
+
+    const float MAX_PHEROMONE = 2.0f; // du kan justere denne værdi
+    if (value < 0.0f) value = 0.0f;
+    if (value > MAX_PHEROMONE) value = MAX_PHEROMONE;
+    pheromone = value;
+
+
+
 }
 
 

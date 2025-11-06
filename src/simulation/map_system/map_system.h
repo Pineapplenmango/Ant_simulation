@@ -22,6 +22,7 @@ private:
     pair<int,int> nestPoint;
     pair<int,int> resourcePoint;
     void evaporateAll();
+    
 
 public:
     MapSystem(/* args */);
