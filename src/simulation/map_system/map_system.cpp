@@ -66,7 +66,7 @@ void MapSystem::addPheromone(int x, int y, float amount)
     float p = c.getPheromone();
 
     // Brug samme cap som i Cell::setPheromone (du har 10.0f der)
-    const float MAX = 2.0f; // hold dette identisk med cap i setPheromone
+    const float MAX = 10.0f; // hold dette identisk med cap i setPheromone
 
     // "Soft saturation": jo tættere på MAX, desto mindre ekstra effekt
     // p_new = p + amount * (1 - p/MAX)
@@ -106,7 +106,7 @@ std::vector<std::pair<int,int>> MapSystem::getNeighbors(int x, int y)
 void MapSystem::updateAll()
 {
 
-     const float evaporationRate = 0.02f; // justér efter behov (1% pr. frame fx)
+     const float evaporationRate = 0.025f; // justér efter behov (1% pr. frame fx)
 
     for (auto& row : cellGrid)
     {

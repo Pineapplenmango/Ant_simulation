@@ -3,7 +3,7 @@
 #include <algorithm>
 
 
-Ant::Ant(int startX, int StartY) : positionX(startX), positionY(StartY), carryingRessource(false), alpha(3.0f), beta(1.5f)
+Ant::Ant(int startX, int StartY) : positionX(startX), positionY(StartY), carryingRessource(false), alpha(2.0f), beta(0.5f)
 {
     path.clear();
 }
@@ -20,71 +20,31 @@ void Ant::update(MapSystem& map)
 
 
 
-    if(path.size()>400){
-
+    if(path.size()>1000){
+                carryingRessource = false;
                 positionX = map.getNestX();
                  positionY = map.getNestY();
-                carryingRessource = false;
-                beta = 1.5f; // samme som init
                 path.clear();
               
             
         }
 
 
-   // if(path.size()>300){beta = 5.0f;}
-
-
 
      //Hvis den leder efter ressource
     if (!carryingRessource)
     {
-        // tjek om position er ressource
-        /*if (positionX == map.getResourceX() && positionY == map.getResourceY()){
-          
-            if (!carryingRessource && positionX == map.getResourceX() && positionY == map.getResourceY())
-                std::cout << "FOUND resource at " << positionX << "," << positionY << std::endl;
-
-             carryingRessource = true;
-
-            //setPath = path; //konstant path i memory
-            return; // begynder at backtracke i næste frame
-        }*/
 
         if (!carryingRessource &&
                 positionX == map.getResourceX() &&
                  positionY == map.getResourceY())
                 {
                     carryingRessource = true;
-                    std::cout << "FOUND resource at " << positionX << "," << positionY << std::endl;
+                   // std::cout << "FOUND resource at " << positionX << "," << positionY << std::endl;
                         return;
                         }
 
-
-
-
         move(map);
-
-        // tjek igen om position er ressource
-        /*if (positionX == map.getResourceX() && positionY == map.getResourceY()){
-       
-                if (!carryingRessource && positionX == map.getResourceX() && positionY == map.getResourceY())
-                std::cout << "FOUND resource at " << positionX << "," << positionY << std::endl;
-                    carryingRessource = true;
-
-
-            //setPath = path; //konstant path i memory
-            return;
-        }*/
-                        //er det hre virkelig nødvendigt..? tror ikke
-           /*     if (!carryingRessource &&
-                positionX == map.getResourceX() &&
-                 positionY == map.getResourceY())
-                {
-                    carryingRessource = true;
-                    std::cout << "FOUND resource at " << positionX << "," << positionY << std::endl;
-                        return;
-                        }*/
 
 
 
@@ -95,44 +55,11 @@ void Ant::update(MapSystem& map)
     else
     {
 
-
-       // static int frameCounter = 0;
-       // if (frameCounter++ % 10 == 0) // kun hvert 10. frame
-      //      map.addPheromone(positionX, positionY, 0.05f);
-        
-        //map.addPheromone(positionX, positionY, 1.0f);
-       // if (!(positionX == map.getNestX() && positionY == map.getNestY()))
-                //map.addPheromone(positionX, positionY, 0.005f);
-
-
-              //  float distToNest = std::hypot(positionX - map.getNestX(), positionY - map.getNestY());
-              //  float strength = 0.01f * std::exp(-distToNest * 0.02f);
-               // map.addPheromone(positionX, positionY, strength);
-
                 float distToNest = std::hypot(positionX - map.getNestX(), positionY - map.getNestY());
-                float k = 0.03f;             // hvor hurtigt feromonet vokser med afstand
-                float base = 0.025f;          // maksimal afsætning i den fjerne ende
+                float k = 0.08f;             // hvor hurtigt feromonet vokser med afstand
+                float base = 0.02f;          // maksimal afsætning i den fjerne ende
                 float strength = base * (1.0f - std::exp(-k * distToNest));
                 map.addPheromone(positionX, positionY, strength);
-
-
-
-        /*if (!path.empty()){
-            auto [px,py] = path.back(); path.pop_back();
-            positionX = px; positionY = py;
-        } 
-        else 
-        {
-            // tjek om position er nest
-          //  if (positionX == map.getNestX() && positionY == map.getNestY()){
-            //    carryingRessource = false; // ny tur
-           // }
-             if (std::abs(positionX - map.getNestX()) <= 1 && std::abs(positionY - map.getNestY()) <= 1)
-                {
-                    carryingRessource = false;
-                    path.clear();
-                }
-        }*/
 
         
 
@@ -142,11 +69,12 @@ void Ant::update(MapSystem& map)
         } else {
     if (std::abs(positionX - map.getNestX()) <= 1 &&
         std::abs(positionY - map.getNestY()) <= 1) {
-            std::cout << "ressource returned at nest at " << positionX << "," << positionY << std::endl;
+         //   std::cout << "ressource returned at nest at " << positionX << "," << positionY << std::endl;
+         map.ressourcesDelivered++;
         carryingRessource = false;
             } else {
         // Mistet vej hjem, drop feromon og vend tilbage til søgning
-        std::cout << "resource lost " << std::endl;
+      //  std::cout << "resource lost " << std::endl;
         carryingRessource = false;
         path.clear();
             }
@@ -165,11 +93,9 @@ std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
     auto neighbors = map.getNeighbors(positionX, positionY);
     if (neighbors.empty()) return {positionX, positionY};
 
-
-    // 1️⃣ Fjern de seneste 4 besøgte celler (korttidshukommelse)
-    const int memoryLength = 6; 
+    // 1) Korttidshukommelse
+    const int memoryLength = 6;
     int startIdx = std::max(0, (int)path.size() - memoryLength);
-
     for (int i = startIdx; i < (int)path.size(); ++i)
     {
         auto [hx, hy] = path[i];
@@ -179,46 +105,51 @@ std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
                            { return n.first == hx && n.second == hy; }),
             neighbors.end());
     }
-
-    // Hvis alle naboer er filtreret væk, vælg igen blandt alle (for at undgå fastlåsning)
     if (neighbors.empty())
         neighbors = map.getNeighbors(positionX, positionY);
 
-    // 2️⃣ Beregn retningsbias (retningsstabilitet)
-    float dx_prev = 0.0f;
-    float dy_prev = 0.0f;
-    if (!path.empty())
-    {
-        dx_prev = (float)(positionX - path.back().first);
-        dy_prev = (float)(positionY - path.back().second);
+    // 2) Forrige retning (unit-vektor)
+    float dirx = 0.0f, diry = 0.0f;
+    if (!path.empty()) {
+        dirx = (float)(positionX - path.back().first);
+        diry = (float)(positionY - path.back().second);
+        float len = std::sqrt(dirx*dirx + diry*diry);
+        if (len > 0.0f) { dirx /= len; diry /= len; }
     }
 
-    // Bias-styrke: hvor meget retningsstabilitet skal påvirke bevægelsen
-    const float directionBiasStrength = 1.5f; 
+    const float directionBiasStrength = 0.7f; // du kan tune 0.4–1.5
 
-
-
-    
-
-    //dorigo equation..?
+    // 3) Dorigo-vægtning + retningsbias
     std::vector<float> weights;
+    weights.reserve(neighbors.size());
     float total = 0.0f;
 
     for (auto [nx, ny] : neighbors)
     {
-        float tau = map.getCell(nx, ny).getPheromone();
+       float tau = map.getCell(nx, ny).getPheromone();
+    if (tau < 1e-6f) tau = 1e-6f; // undgå nulvægt
 
+    // retningsbias via cosinus mellem sidste skridt og kandidat-skridt
+    float stepx = (float)(nx - positionX);
+    float stepy = (float)(ny - positionY);
+    float slen = std::sqrt(stepx*stepx + stepy*stepy);
+    if (slen > 0.0f) { stepx /= slen; stepy /= slen; }
+    float cosTheta = stepx * dirx + stepy * diry; // [-1..1]
+    float bias = 1.0f + directionBiasStrength * cosTheta;
+    if (bias < 0.1f) bias = 0.1f; // undgå nulretning
 
-        // 🐜 Hvis myren IKKE bærer på ressource, skal den ikke være så tiltrukket af feromon
-       //  if (!carryingRessource) {
-       // tau *= 0.5f; // reducer feromonets betydning kraftigt (kan tunes: 0.01f–0.2f)
-         //   }
+    // 💡 Beta styrer hvor stærkt feromonet dominerer:
+    // høj beta → følger trail blindt
+    // lav beta → mere tilfældig og udforskende
+    float tauInfluence = std::pow(tau, alpha / beta);
 
+    // 💫 Tilføj lidt tilfældig støj (små afvigelser)
+    float noise = 0.8f + ((float)rand() / RAND_MAX) * (0.4f / beta);
+    // Lav beta → mere støj → mere udforskning
 
-        float eta = 0.5f;
-        float value = pow(tau, alpha) * pow(eta, beta);
-        weights.push_back(value);
-        total += value;
+    float value = tauInfluence * bias * noise;
+    weights.push_back(value);
+    total += value;
     }
 
     if (total <= 0.0f)
@@ -232,7 +163,6 @@ std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
         if (r <= cumulative)
             return neighbors[i];
     }
-
     return neighbors.back();
 }
 

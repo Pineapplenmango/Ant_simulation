@@ -31,7 +31,6 @@ public:
     void setObstacle(int x, int y);
     void setNestPoint(int x, int y);
     void setRessourcePoint(int x, int y);
-
     void addPheromone(int x, int y, float amount);
 
     std::vector<std::pair<int,int>> getNeighbors(int x, int y);
@@ -48,6 +47,7 @@ public:
 
     int getHeight() const { return cellGrid.size(); }
     int getWidth() const { return cellGrid.empty() ? 0 : cellGrid[0].size(); }   
+    int ressourcesDelivered = 0;
 
     Cell& getCell(int x, int y){return cellGrid[y][x];}
     const Cell& getCell(int x, int y) const {return cellGrid[y][x];}

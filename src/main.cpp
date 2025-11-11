@@ -21,7 +21,7 @@ int main(void)
 {
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Ant Simulation");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
 
     Controller sim;
 
@@ -89,7 +89,7 @@ int main(void)
 
 
         if (IsKeyPressed(KEY_K))
-            sim.addAnts(10);   // tilføj 10 ad gangen
+            sim.addAnts(100);   // tilføj 100 ad gangen
 
 
 
@@ -103,6 +103,10 @@ int main(void)
    
         if (IsKeyPressed(KEY_D))
             sim.removeAnts(1);   // fjern én ad gangen
+
+
+        if (IsKeyPressed(KEY_L))
+            sim.removeAnts(100);   // fjern 100 ad gangen
 
 
         //    opdater positioner
@@ -163,8 +167,14 @@ int main(void)
         }
 
         // UI-overlay tekst
-        DrawText("SPACE=Start  P=Pause  R=Reset  N=Nest  M=Resource  O=Obstacles  A=Add ant D=Remove ant K=Add 10 ants",
+        DrawText("SPACE=Start  P=Pause  R=Reset  N=Nest  M=Resource  O=Obstacles  A=Add ant D=Remove ant K/L=Add/remove 100 ants",
                  10, 10, 14, BLACK);
+        DrawText(TextFormat("Performance:"), 10, 50, 15, RED);
+        DrawText(TextFormat("FPS: %d", GetFPS()), 10, 70, 15, DARKGRAY);
+        DrawText(TextFormat("Behaviour "), 10, 100, 15, RED);
+        DrawText(TextFormat("Ant count: %d", ants.getAnts().size()), 10, 120, 15, DARKGRAY);
+        DrawText(TextFormat("ressources delivered: %d", map.ressourcesDelivered), 10, 140, 15, DARKGRAY);
+
 
         EndDrawing();
     }
