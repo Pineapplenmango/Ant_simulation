@@ -31,14 +31,14 @@ private:
     int positionY;
     bool carryingRessource;
     std::vector<pair<int,int>> path; // historik af rute
-    std::vector<pair<int,int>> setPath;
+    //std::vector<pair<int,int>> setPath;
     float alpha;
     float beta;
 
     std::pair<int,int> chooseNextCell(MapSystem& map);
   
-    void exploring();
-    void returning();
+  //  void exploring();
+   // void returning();
 
 
 

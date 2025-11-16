@@ -33,7 +33,7 @@ public:
     void setRessourcePoint(int x, int y);
     void addPheromone(int x, int y, float amount);
 
-    std::vector<std::pair<int,int>> getNeighbors(int x, int y);
+    std::vector<std::pair<int,int>> findNeighbors(int x, int y); //omdøbt fra get til find da det ikke er en get-funktion
 
 
     void updateAll();

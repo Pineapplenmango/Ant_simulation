@@ -36,8 +36,8 @@ AntSystem::~AntSystem()
     void AntSystem::updateAll(MapSystem& map, float time){
 
           for (auto& ant : ants)
-    {
+        {
         ant.update(map);
-    }
+        }
 
     }

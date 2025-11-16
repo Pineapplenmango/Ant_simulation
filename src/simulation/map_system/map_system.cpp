@@ -80,7 +80,7 @@ void MapSystem::addPheromone(int x, int y, float amount)
 
 
 
-std::vector<std::pair<int,int>> MapSystem::getNeighbors(int x, int y)
+std::vector<std::pair<int,int>> MapSystem::findNeighbors(int x, int y)
 {
     std::vector<std::pair<int,int>> result;
     static const int dirs[4][2] = { {1,0}, {-1,0}, {0,1}, {0,-1} };

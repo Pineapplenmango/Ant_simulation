@@ -90,7 +90,7 @@ void Ant::update(MapSystem& map)
 
 std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
 {
-    auto neighbors = map.getNeighbors(positionX, positionY);
+    auto neighbors = map.findNeighbors(positionX, positionY);
     if (neighbors.empty()) return {positionX, positionY};
 
     // 1) Korttidshukommelse
@@ -106,7 +106,7 @@ std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
             neighbors.end());
     }
     if (neighbors.empty())
-        neighbors = map.getNeighbors(positionX, positionY);
+        neighbors = map.findNeighbors(positionX, positionY);
 
     // 2) Forrige retning (unit-vektor)
     float dirx = 0.0f, diry = 0.0f;
