@@ -1,31 +1,42 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build raylib (C++)",
-            "type": "shell",
-            // VIGTIGT: Den fulde sti til kompilatoren
-            "command": "C:/raylib/w64devkit/bin/g++", 
-            "args": [
-                "main.cpp",
-                "-o", "ant_simulation.exe",
-                // Header Path: Hvor ligger raylib.h?
-                "-I", "C:/raylib/raylib/src",
-                // Library Path: Hvor ligger libraylib.a (den dybe sti)
-                "-L", "C:/raylib/w64devkit/x86_64-w64-mingw32/lib",
-                // Nødvendige links
-                "-lraylib",
-                "-lopengl32",
-                "-lgdi32",
-                "-lwinmm",
-                "-Wall",
-                "-std=c++17" 
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": ["$gcc"]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Ant Simulation (MSVC)",
+      "type": "shell",
+      "command": "cl",
+      "options": {
+        "shell": {
+          "executable": "cmd.exe",
+          "args": ["/c"]
         }
-    ]
+      },
+      "args": [
+        "/std:c++17",
+        "/Zi", "/Od", "/EHsc", "/MD",
+        "src\\main.cpp",
+        "src\\simulation\\ant\\*.cpp",
+        "src\\simulation\\ant_system\\*.cpp",
+        "src\\simulation\\map_system\\*.cpp",
+        "src\\simulation\\controller\\*.cpp",
+        "src\\simulation\\cell\\*.cpp",
+        "/I", "C:\\Users\\Andre\\Documents\\raylib_msvc\\raylib-5.5_win64_msvc16\\include",
+        "/link",
+        "C:\\Users\\Andre\\Documents\\raylib_msvc\\raylib-5.5_win64_msvc16\\lib\\raylib.lib",
+        "opengl32.lib",
+        "gdi32.lib",
+        "winmm.lib",
+        "user32.lib",
+        "shell32.lib",
+        "ole32.lib",
+        "uuid.lib",
+        "advapi32.lib",
+        "comdlg32.lib",
+        "/DEBUG",
+        "/OUT:ant_simulation.exe"
+      ],
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$msCompile"]
+    }
+  ]
 }
