@@ -52,20 +52,13 @@ void MapSystem::setRessourcePoint(int x, int y)
 
 void MapSystem::addPheromone(int x, int y, float amount)
 {
-   /* if (y >= 0 && y < (int)cellGrid.size() &&
-        x >= 0 && x < (int)cellGrid[0].size())
-    {
-        float v = cellGrid[y][x].getPheromone() + amount;
-        cellGrid[y][x].setPheromone(v);
-    }*/
-
 
     if (amount <= 0.0f) return;
 
     Cell& c = getCell(x, y);
     float p = c.getPheromone();
 
-    // Brug samme cap som i Cell::setPheromone (du har 10.0f der)
+    // Brug samme cap som i Cell::setPheromone
     const float MAX = 10.0f; // hold dette identisk med cap i setPheromone
 
     // "Soft saturation": jo tættere på MAX, desto mindre ekstra effekt

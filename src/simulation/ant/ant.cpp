@@ -15,11 +15,6 @@ Ant::~Ant()
 void Ant::update(MapSystem& map)
 {
 
-
-  
-
-
-
     if(path.size()>1000){
                 carryingRessource = false;
                 positionX = map.getNestX();
@@ -28,7 +23,6 @@ void Ant::update(MapSystem& map)
               
             
         }
-
 
 
      //Hvis den leder efter ressource
@@ -40,15 +34,10 @@ void Ant::update(MapSystem& map)
                  positionY == map.getResourceY())
                 {
                     carryingRessource = true;
-                   // std::cout << "FOUND resource at " << positionX << "," << positionY << std::endl;
                         return;
                         }
 
         move(map);
-
-
-
-
 
     }
     // hvis den har fundet ressource
@@ -69,12 +58,10 @@ void Ant::update(MapSystem& map)
         } else {
     if (std::abs(positionX - map.getNestX()) <= 1 &&
         std::abs(positionY - map.getNestY()) <= 1) {
-         //   std::cout << "ressource returned at nest at " << positionX << "," << positionY << std::endl;
          map.ressourcesDelivered++;
         carryingRessource = false;
             } else {
         // Mistet vej hjem, drop feromon og vend tilbage til søgning
-      //  std::cout << "resource lost " << std::endl;
         carryingRessource = false;
         path.clear();
             }

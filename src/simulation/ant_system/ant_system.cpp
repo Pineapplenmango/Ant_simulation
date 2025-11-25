@@ -12,14 +12,12 @@ AntSystem::~AntSystem()
 
     void AntSystem::spawnAnt(int x, int y)
     {
-    if(ants.size() < 1600){
+    if(ants.size() < 3200){
     ants.emplace_back(x,y); 
-   // std::cout << "Ant added at (" << x << ", " << y << ")\n";
-    //std::cout << "Ant count: " << ants.size() << std::endl;
+
     }
     else{    
-      //  std::cout << "Ant count: " << ants.size() << std::endl;
-      //  std::cout << "Ants max reached";
+
             }
 
     }
@@ -29,7 +27,6 @@ AntSystem::~AntSystem()
     if (!ants.empty())
     {
         ants.pop_back();
-     //   std::cout << "Ant removed\n";
     }
 
     }

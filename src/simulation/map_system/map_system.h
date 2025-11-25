@@ -19,6 +19,9 @@ class MapSystem
 private:
     /* data */
     std::vector<std::vector<Cell>> cellGrid; // [x][y] grid
+
+    std::vector<Cell> cellGridDod;
+    
     pair<int,int> nestPoint;
     pair<int,int> resourcePoint;
     void evaporateAll();

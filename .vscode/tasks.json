@@ -16,7 +16,7 @@
         "/Zi", "/Od", "/EHsc", "/MD",
         "src\\main.cpp",
         "src\\simulation\\ant\\*.cpp",
-        "src\\simulation\\ant_system\\*.cpp",
+        "src\\simulation\\ant_system_dod\\*.cpp",
         "src\\simulation\\map_system\\*.cpp",
         "src\\simulation\\controller\\*.cpp",
         "src\\simulation\\cell\\*.cpp",

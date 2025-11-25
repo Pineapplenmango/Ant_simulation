@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
 #include "../map_system/map_system.h"
-#include "../ant_system/ant_system.h"
+//#include "../ant_system/ant_system.h"
+#include "../ant_system_dod/ant_system_dod.h"
 using namespace std;
 
 
@@ -28,7 +29,9 @@ class Controller
 private:
     /* data */
     MapSystem map;
-    AntSystem colony;
+    //AntSystem colony;
+    AntSystemDOD colony;
+
 
     SimulationState state;
 
@@ -63,7 +66,10 @@ public:
 
 
     const MapSystem& getMap() const {return map;}
-    const AntSystem& getColony() const {return colony;}
+    //const AntSystem& getColony() const {return colony;}
+
+    const AntSystemDOD& getColony() const {return colony;}
+
     SimulationState getState() const {return state;}
 
 };

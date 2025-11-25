@@ -1,4 +1,5 @@
 #include "controller.h"
+#include <iostream>
 
 Controller::Controller(/* args */) : state(SimulationState::STOPPED),
       nestSet(false),
@@ -78,7 +79,7 @@ void Controller::stop()
 {
     state = SimulationState::STOPPED;
     map = MapSystem();      // reset grid og feromoner
-    colony = AntSystem();   // reset myrer
+    colony = AntSystemDOD();   // reset myrer
     nestSet = false;
     ressourceSet = false;
     time = 0.0f;
@@ -97,6 +98,6 @@ void Controller::updateFrame()
 
 void Controller::updateFrameInternal()
 {
-    colony.updateAll(map, time); // myrer bevæger sig
+    colony.update(map); // myrer bevæger sig
     map.updateAll();       // evaporation
 }

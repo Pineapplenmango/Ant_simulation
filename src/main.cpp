@@ -158,13 +158,28 @@ int main(void)
                    CELL_SIZE / 2, BLUE);
 
         // Tegn myrer
-        const AntSystem& ants = sim.getColony();
+        /*const AntSystem& ants = sim.getColony();
         for (const auto& a : ants.getAnts())
         {
             DrawCircle(a.getX() * CELL_SIZE + CELL_SIZE / 2,
                        a.getY() * CELL_SIZE + CELL_SIZE / 2,
                        CELL_SIZE / 3, RED);
+        }*/
+
+        const AntSystemDOD& ants = sim.getColony();
+        for (int i = 0; i < ants.getCount(); ++i)
+        {
+            DrawCircle(
+            ants.getX(i) * CELL_SIZE + CELL_SIZE/2,
+            ants.getY(i) * CELL_SIZE + CELL_SIZE/2,
+            CELL_SIZE / 3,
+            RED
+            );
         }
+
+
+
+
 
         // UI-overlay tekst
         DrawText("SPACE=Start  P=Pause  R=Reset  N=Nest  M=Resource  O=Obstacles  A=Add ant D=Remove ant K/L=Add/remove 100 ants",
@@ -172,7 +187,7 @@ int main(void)
         DrawText(TextFormat("Performance:"), 10, 50, 15, RED);
         DrawText(TextFormat("FPS: %d", GetFPS()), 10, 70, 15, DARKGRAY);
         DrawText(TextFormat("Behaviour "), 10, 100, 15, RED);
-        DrawText(TextFormat("Ant count: %d", ants.getAnts().size()), 10, 120, 15, DARKGRAY);
+        DrawText(TextFormat("Ant count: %d", ants.getCount()), 10, 120, 15, DARKGRAY);
         DrawText(TextFormat("ressources delivered: %d", map.ressourcesDelivered), 10, 140, 15, DARKGRAY);
 
 

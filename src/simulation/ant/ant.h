@@ -37,8 +37,6 @@ private:
 
     std::pair<int,int> chooseNextCell(MapSystem& map);
   
-  //  void exploring();
-   // void returning();
 
 
 
