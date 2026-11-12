@@ -1,0 +1,23 @@
+# MSVC build output
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.idb
+*.exp
+*.lib
+*.pch
+*.ipch
+build/
+out/
+
+# Doxygen
+Doxyfile.bak
+/html/
+/latex/
+
+# Editor / OS
+.vs/
+*.user
+Thumbs.db
+.DS_Store
