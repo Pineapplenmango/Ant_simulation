@@ -3,18 +3,18 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**",
-                "C:/raylib/raylib/src"
+                "${workspaceFolder}/src/**",
+                "C:/raylib-6.2_win64_msvc16/include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:/raylib/w64devkit/bin/g++.exe",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-x64"
+            "intelliSenseMode": "windows-msvc-x64"
         }
     ],
     "version": 4

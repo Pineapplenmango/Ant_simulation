@@ -11,10 +11,11 @@
 build/
 out/
 
-# Doxygen
+# Doxygen (generated output - regenerate with doxygen)
 Doxyfile.bak
 /html/
 /latex/
+docs/
 
 # Editor / OS
 .vs/
