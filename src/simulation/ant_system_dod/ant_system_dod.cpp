@@ -38,7 +38,8 @@ void AntSystemDOD::removeAnt()
 
 void AntSystemDOD::update(MapSystem& map)
 {
-      const int count = (int)positionX.size();
+    const int count = (int)positionX.size();
+
     for (int i = 0; i < count; ++i)
     {
         updateAnt(i, map);  
@@ -49,7 +50,7 @@ void AntSystemDOD::update(MapSystem& map)
 void AntSystemDOD::updateAnt(int i, MapSystem& map)
 {
     
-
+    //levetid af myre
     if (path[i].size() > 1000) {
         carryingRessource[i] = false;
         positionX[i] = map.getNestX();
@@ -70,6 +71,7 @@ void AntSystemDOD::updateAnt(int i, MapSystem& map)
 
         move(i, map);
     }
+
     // hvis den har fundet ressource
     else
     {
@@ -207,6 +209,15 @@ std::pair<int,int> AntSystemDOD::chooseNextCell(int i, MapSystem& map)
     float weights[4];
     float total = 0.0f;
 
+
+        // samme alpha/beta logik
+        //hoist invariants (udenfor for for-loopet)
+        float a = alpha[i];
+        float b = beta[i];
+
+        //ahead of time computation
+        float alphaOverBeta = a / b;
+
     for (int j = 0; j < neighborCount; ++j)
     {
         int nx = nxs[j];
@@ -225,9 +236,9 @@ std::pair<int,int> AntSystemDOD::chooseNextCell(int i, MapSystem& map)
         if (bias < 0.1f) bias = 0.1f;
 
         // samme alpha/beta logik
-        float a = alpha[i];
-        float b = beta[i];
-        float tauInfluence = std::pow(tau, a / b);
+        //float a = alpha[i];
+        //float b = beta[i];
+        float tauInfluence = std::pow(tau, alphaOverBeta);
 
         float noise = 0.8f + ((float)rand() / RAND_MAX) * (0.4f / b);
 

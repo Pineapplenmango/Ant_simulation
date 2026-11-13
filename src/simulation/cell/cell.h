@@ -2,10 +2,15 @@
 
 /**
  * @class Cell
- * @brief Repræsenterer en enkelt celle i griddet.
+ * @brief Mindste enhed i simulationens grid.
  *
- * En celle kan være bevægelig eller blokeret, og kan indeholde et feromon-niveau.
- * Denne klasse anvender `inline` og `const` for at minimere kald-overhead.
+ * En celle kan enten være:
+ *  - walkable (myrer kan passere)
+ *  - blokeret (forhindring)
+ *
+ * Derudover indeholder cellen et feromonniveau, som bruges
+ * af myrer til at træffe bevægelsesbeslutninger.
+ *
  */
 
 
@@ -16,12 +21,14 @@ private:
     bool walkable; ///< True hvis myrer kan bevæge sig gennem cellen.
     float pheromone;  ///< Feromonniveauet i cellen.
 public:
-    Cell(/* args */);
+    Cell();
     ~Cell();
 
+    /// Walkable-flag
     inline bool isWalkable() const {return walkable;} 
     inline void setWalkable(bool value) {walkable = value;}
 
+     /// Feromon-access
     inline float getPheromone() const {return pheromone;}
     void setPheromone(float value);
 

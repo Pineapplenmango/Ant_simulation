@@ -1,5 +1,8 @@
 #include "ant_system.h"
 
+
+
+
 AntSystem::AntSystem(/* args */)
 {
 }
@@ -30,7 +33,7 @@ AntSystem::~AntSystem()
     }
 
     }
-    void AntSystem::updateAll(MapSystem& map, float time){
+    void AntSystem::updateAll(MapSystem& map){
 
           for (auto& ant : ants)
         {

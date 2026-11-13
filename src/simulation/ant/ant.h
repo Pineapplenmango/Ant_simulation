@@ -10,16 +10,16 @@ using namespace std;
 
 /**
  * @class Ant
- * @brief Repræsenterer en individuel myre i simulationen.
+ * @brief Repræsenterer én individuel myre i simulationen.
  *
- * Anten bevæger sig på et grid, påvirket af feromonstyrker og tilfældige valg.
- * Hvis den finder en ressource, vil den bevæge sig tilbage mod reden og aflejre feromoner på sin vej.
+ * Myren bevæger sig på et grid og vælger sin retning baseret på:
+ *  - Feromonstyrke
+ *  - Retningsbias (tidligere bevægelse)
+ *  - Tilfældig støj (udforskning)
  *
- * @param positionX Myrens nuværende X-position i gridet.
- * @param positionY Myrens nuværende Y-position i gridet.
- * @param carryingRessource True, hvis myren bærer en ressource tilbage.
+ * Når myren finder en ressource, følger den sin gemte sti tilbage til reden
+ * og afsætter feromoner proportionalt med afstanden.
  */
-
 
 
 
@@ -27,19 +27,29 @@ using namespace std;
 class Ant
 {
 private:
+     /// Aktuel position
     int positionX;
     int positionY;
-    bool carryingRessource;
-    std::vector<pair<int,int>> path; // historik af rute
-    //std::vector<pair<int,int>> setPath;
-    float alpha;
-    float beta;
 
+    /// Om myren bærer en ressource
+    bool carryingRessource;
+
+    /// Historik over tidligere positioner (bruges som hukommelse)
+    std::vector<pair<int,int>> path;
+
+    /// ACO-parametre
+    float alpha;///< Feromonindflydelse
+    float beta; ///< Støjniveau / udforskning
+
+    /**
+     * @brief Vælger næste celle baseret på Dorigo-vægtning.
+     */
     std::pair<int,int> chooseNextCell(MapSystem& map);
   
 
-
-
+    /**
+     * @brief Flytter myren én celle og gemmer den tidligere position.
+     */
     void move(MapSystem& map);
 
 
@@ -50,8 +60,14 @@ public:
     
 
     ~Ant();
+
+    /**
+     * @brief Opdaterer myrens tilstand for én simulation-frame.
+     */
+
     void update(MapSystem& map);
 
+    /// Getter til rendering
     inline int getX() const { return positionX; }
     inline int getY() const { return positionY; }
 

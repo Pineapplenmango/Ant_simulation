@@ -6,17 +6,11 @@
 using namespace std;
 
 
+
 /**
- * @class Controller
- * @brief Sørger for at kontrollere alle logik komponenter korrekt for simulationen
- *
- * 
- * 
+ * @enum SimulationState
+ * @brief Definerer simulationens overordnede tilstand.
  */
-
-
-
-
 
 enum class SimulationState {
     STOPPED,
@@ -24,13 +18,26 @@ enum class SimulationState {
     PAUSED
 };
 
+
+
+/**
+ * @class Controller
+ * @brief Overordnet styring af simulationen.
+ *
+ * Controller fungerer som facade mellem UI og systems:
+ *  - MapSystem (grid, feromoner, ressourcer)
+ *  - AntSystem / AntSystemDOD
+ *
+ * Den håndterer også simulationens livscyklus (start/pause/stop).
+ */
+
 class Controller
 {
 private:
     /* data */
-    MapSystem map;
-    //AntSystem colony;
-    AntSystemDOD colony;
+    MapSystem map; ///< Simulationens grid
+    //AntSystem colony; 
+    AntSystemDOD colony; ///< Myrekoloni (DOD-version)
 
 
     SimulationState state;
@@ -38,10 +45,12 @@ private:
     bool nestSet;
     bool ressourceSet;
 
-    float time;
+    float time; ///< Simuleret tid
 
-    void updateFrameInternal(); 
+    /// Intern frame-opdatering
+    void updateFrameInternal();  
 
+    /// Tjekker om simulationen er klar til start
     bool readyToStart() const {return nestSet && ressourceSet;}
 
 public:

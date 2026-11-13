@@ -43,7 +43,6 @@ void Ant::update(MapSystem& map)
     // hvis den har fundet ressource
     else
     {
-
                 float distToNest = std::hypot(positionX - map.getNestX(), positionY - map.getNestY());
                 float k = 0.08f;             // hvor hurtigt feromonet vokser med afstand
                 float base = 0.02f;          // maksimal afsætning i den fjerne ende
@@ -93,12 +92,13 @@ std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
             neighbors.end());
     }
     if (neighbors.empty())
+    {
         neighbors = map.findNeighbors(positionX, positionY);
-
-    // 2) Forrige retning (unit-vektor)
+    }
+    //2) Forrige retning (unit-vektor)
     float dirx = 0.0f, diry = 0.0f;
     if (!path.empty()) {
-        dirx = (float)(positionX - path.back().first);
+        dirx = (float)(positionX - path.back().first); //path er pair(x,y), .first er derved x
         diry = (float)(positionY - path.back().second);
         float len = std::sqrt(dirx*dirx + diry*diry);
         if (len > 0.0f) { dirx /= len; diry /= len; }
@@ -116,7 +116,7 @@ std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
        float tau = map.getCell(nx, ny).getPheromone();
     if (tau < 1e-6f) tau = 1e-6f; // undgå nulvægt
 
-    // retningsbias via cosinus mellem sidste skridt og kandidat-skridt
+    // retningsbias via cos mellem forrige- og næste mulige position
     float stepx = (float)(nx - positionX);
     float stepy = (float)(ny - positionY);
     float slen = std::sqrt(stepx*stepx + stepy*stepy);
@@ -125,14 +125,14 @@ std::pair<int,int> Ant::chooseNextCell(MapSystem& map)
     float bias = 1.0f + directionBiasStrength * cosTheta;
     if (bias < 0.1f) bias = 0.1f; // undgå nulretning
 
-    // 💡 Beta styrer hvor stærkt feromonet dominerer:
+    // Beta styrer hvor stærkt feromonet dominerer:
     // høj beta → følger trail blindt
     // lav beta → mere tilfældig og udforskende
     float tauInfluence = std::pow(tau, alpha / beta);
 
-    // 💫 Tilføj lidt tilfældig støj (små afvigelser)
-    float noise = 0.8f + ((float)rand() / RAND_MAX) * (0.4f / beta);
-    // Lav beta → mere støj → mere udforskning
+    //Tilføj tilfældig støj 
+    float noise = 0.8f + ((float)rand() / RAND_MAX) * (0.4f / beta); 
+    // Lav beta = mere støj = mere udforskning
 
     float value = tauInfluence * bias * noise;
     weights.push_back(value);

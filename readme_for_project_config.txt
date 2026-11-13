@@ -20,3 +20,17 @@ path for index file:
 
 
 **giv forklaring for hvorfor denne config**
+
+/**
+ * @mainpage Ant Colony Simulation
+ *
+ * @section intro_sec Introduction
+ * This project implements an ant colony simulation using
+ * Ant Colony Optimization principles.
+ *
+ * Two architectures are implemented:
+ * - Object-Oriented Design (OOP)
+ * - Data-Oriented Design (DOD)
+ *
+ * The DOD version focuses on cache locality and performance.
+ */

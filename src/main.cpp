@@ -17,6 +17,24 @@ const int CELL_SIZE = 10;
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 800;
 
+
+/**
+ * @file main.cpp
+ * @brief Entry point for myre-simulationen.
+ *
+ * Indeholder:
+ *  - Initialisering af Raylib
+ *  - Input-håndtering
+ *  - Opdateringsloop
+ *  - Rendering af grid, myrer og UI
+ *
+ * main.cpp indeholder bevidst ingen simulation-logik –
+ * al adfærd er uddelegeret til Controller og systems
+ * for at bevare klar arkitektur.
+ */
+
+
+
 int main(void)
 {
 
