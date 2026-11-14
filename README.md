@@ -50,7 +50,15 @@ src/
 
 The DOD version is the one currently built. To switch to OOP, swap the commented-out `AntSystem` / `AntSystemDOD` lines in `controller.h` and `main.cpp`.
 
-<!-- TODO: add benchmark results (update time per tick vs. ant count, Release build) -->
+## Performance
+
+<!-- TODO: benchmark results. Release build (/O2), simulation update time per tick (excluding rendering), OOP vs. DOD at e.g. 100 / 1 000 / 10 000 ants. -->
+
+| Ants | OOP (ms/tick) | DOD (ms/tick) | Speedup |
+|---:|---:|---:|---:|
+| 100 | TBD | TBD | TBD |
+| 1 000 | TBD | TBD | TBD |
+| 10 000 | TBD | TBD | TBD |
 
 ## Controls
 
