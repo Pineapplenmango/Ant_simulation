@@ -235,9 +235,7 @@ std::pair<int,int> AntSystemDOD::chooseNextCell(int i, MapSystem& map)
         float bias = 1.0f + directionBiasStrength * cosTheta;
         if (bias < 0.1f) bias = 0.1f;
 
-        // samme alpha/beta logik
-        //float a = alpha[i];
-        //float b = beta[i];
+ 
         float tauInfluence = std::pow(tau, alphaOverBeta);
 
         float noise = 0.8f + ((float)rand() / RAND_MAX) * (0.4f / b);

@@ -3,7 +3,7 @@
 #include "../map_system/map_system.h"
 //#include "../ant_system/ant_system.h"
 #include "../ant_system_dod/ant_system_dod.h"
-using namespace std;
+
 
 
 
@@ -71,7 +71,7 @@ public:
     void addAnts(int amount);
     void removeAnts(int amount);
 
-    void drawObstacles(const std::vector<pair<int,int>>& points);
+    void drawObstacles(const std::vector<std::pair<int,int>>& points);
 
 
     const MapSystem& getMap() const {return map;}

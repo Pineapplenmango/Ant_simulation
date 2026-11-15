@@ -13,14 +13,22 @@ Controller::~Controller()
 
 void Controller::placeNestPoint(int x, int y)
 {
-    map.setNestPoint(x, y);
+    if(!map.setNestPoint(x, y))
+    {
+        std::cout << "Failed to place nest at (" << x << ", " << y << ")\n";
+        return;
+    }
     nestSet = true;
     std::cout << "Nest placed at (" << x << ", " << y << ")\n";
 }
 
 void Controller::placeRessourcePoint(int x, int y)
 {
-    map.setRessourcePoint(x, y);
+    if(!map.setRessourcePoint(x, y))
+    {
+        std::cout << "Failed to place resource at (" << x << ", " << y << ")\n";
+        return;
+    }
     ressourceSet = true;
     std::cout << "Resource placed at (" << x << ", " << y << ")\n";
 }

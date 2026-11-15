@@ -2,16 +2,12 @@
 
 MapSystem::MapSystem()
 {
-
-    const int width = 80;   // strl af map, kan justeres
-    const int height = 80;
-
-    cellGrid.resize(height, std::vector<Cell>(width));
+    cellGrid.resize(HEIGHT, std::vector<Cell>(WIDTH));
 
 
-      for (int y = 0; y < height; ++y)
+      for (int y = 0; y < HEIGHT; ++y)
     {
-        for (int x = 0; x < width; ++x)
+        for (int x = 0; x < WIDTH; ++x)
         {
             cellGrid[y][x].setWalkable(true);
             cellGrid[y][x].setPheromone(0.0f);
@@ -29,25 +25,23 @@ MapSystem::~MapSystem()
 
 void MapSystem::setObstacle(int x, int y)
 {
-    if (y >= 0 && y < (int)cellGrid.size() &&
-        x >= 0 && x < (int)cellGrid[0].size())
-        {
-            cellGrid[y][x].setWalkable(false);
-        }
-    
+    if (!inBounds(x, y)) return;
+    cellGrid[y][x].setWalkable(false);
 }
 
 
-void MapSystem::setNestPoint(int x, int y)
+bool MapSystem::setNestPoint(int x, int y)
 {
- nestPoint= {x,y};
-
+    if(!inBounds(x,y)) return false;
+    nestPoint= {x,y}; 
+    return true;
 }
 
-void MapSystem::setRessourcePoint(int x, int y)
+bool MapSystem::setRessourcePoint(int x, int y)
 {
-
+    if(!inBounds(x,y)) return false;
     resourcePoint = {x,y};
+    return true;
 }
 
 void MapSystem::addPheromone(int x, int y, float amount)

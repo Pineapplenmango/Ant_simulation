@@ -4,7 +4,7 @@ A real-time ant colony simulation in C++17 with [raylib](https://www.raylib.com/
 
 The ant system is implemented twice, once as **object-oriented** code and once as **data-oriented** code, to compare how the two designs perform as the number of ants grows.
 
-<!-- TODO: add screenshot or GIF, e.g. ![Simulation](media/demo.gif) -->
+![Simulation](media/ant_simulation_demo.gif)
 
 ## How it works
 
@@ -50,15 +50,11 @@ src/
 
 The DOD version is the one currently built. To switch to OOP, swap the commented-out `AntSystem` / `AntSystemDOD` lines in `controller.h` and `main.cpp`.
 
-## Performance
+## Next steps
 
-<!-- TODO: benchmark results. Release build (/O2), simulation update time per tick (excluding rendering), OOP vs. DOD at e.g. 100 / 1 000 / 10 000 ants. -->
-
-| Ants | OOP (ms/tick) | DOD (ms/tick) | Speedup |
-|---:|---:|---:|---:|
-| 100 | TBD | TBD | TBD |
-| 1 000 | TBD | TBD | TBD |
-| 10 000 | TBD | TBD | TBD |
+- **Benchmarks:** measure simulation update time per tick (excluding rendering) for OOP vs. DOD at increasing ant counts, using an optimised release build.
+- **Runtime switch:** toggle between OOP and DOD from the UI instead of at compile time.
+- **Further data-oriented work:** flatten the grid into a single contiguous array and replace the per-ant path vectors with a shared, contiguous buffer.
 
 ## Controls
 

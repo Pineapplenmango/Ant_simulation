@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "../ant/ant.h"
-using namespace std;
+
 
 
 /**

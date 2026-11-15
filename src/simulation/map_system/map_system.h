@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "../cell/cell.h"
-using namespace std;
+
 
 /**
  * @class MapSystem
@@ -27,16 +27,21 @@ private:
     //std::vector<Cell> cellGridDod;
     
     /// Position for redepunktet
-    pair<int,int> nestPoint;
+    std::pair<int,int> nestPoint;
 
      /// Position for ressourcepunktet
-    pair<int,int> resourcePoint;
-    void evaporateAll();
-    
-
+    std::pair<int,int> resourcePoint;
+   
 public:
-    MapSystem(/* args */);
+    
+    MapSystem();
     ~MapSystem();
+
+
+    
+    static constexpr int HEIGHT =80;
+    static constexpr int WIDTH =80;
+
 
 
     /**
@@ -47,13 +52,13 @@ public:
     /**
      * @brief Sætter koordinater for reden.
      */
-    void setNestPoint(int x, int y);
+    bool setNestPoint(int x, int y);
 
 
     /**
      * @brief Sætter koordinater for ressourcen.
      */
-    void setRessourcePoint(int x, int y);
+    bool setRessourcePoint(int x, int y);
 
     /**
      * @brief Tilføjer feromon til en bestemt celle.
@@ -95,6 +100,9 @@ public:
     /// Direkte celle-adgang (bruges af systemer)
     Cell& getCell(int x, int y){return cellGrid[y][x];}
     const Cell& getCell(int x, int y) const {return cellGrid[y][x];}
+
+
+    bool inBounds(int x, int y) const { return x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT; }
 
 
 

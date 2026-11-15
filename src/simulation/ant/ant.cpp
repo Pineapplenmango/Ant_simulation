@@ -18,7 +18,7 @@ void Ant::update(MapSystem& map)
     if(path.size()>1000){
                 carryingRessource = false;
                 positionX = map.getNestX();
-                 positionY = map.getNestY();
+                positionY = map.getNestY();
                 path.clear();
               
             

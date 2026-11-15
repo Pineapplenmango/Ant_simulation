@@ -13,16 +13,8 @@ AntSystem::~AntSystem()
 
 
 
-    void AntSystem::spawnAnt(int x, int y)
-    {
-    if(ants.size() < 3200){
-    ants.emplace_back(x,y); 
-
-    }
-    else{    
-
-            }
-
+    void AntSystem::spawnAnt(int x, int y){ 
+        ants.emplace_back(x,y);
     }
 
     void AntSystem::removeAnt(){

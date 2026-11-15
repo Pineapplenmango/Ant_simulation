@@ -5,7 +5,7 @@
 #include <utility>
 #include "../cell/cell.h"
 #include "../map_system/map_system.h"
-using namespace std;
+
 
 
 /**
@@ -35,7 +35,7 @@ private:
     bool carryingRessource;
 
     /// Historik over tidligere positioner (bruges som hukommelse)
-    std::vector<pair<int,int>> path;
+    std::vector<std::pair<int,int>> path;
 
     /// ACO-parametre
     float alpha;///< Feromonindflydelse
@@ -54,7 +54,6 @@ private:
 
 
 public:
-    Ant(/* args */);
     Ant(int startX, int StartY);
 
     

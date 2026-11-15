@@ -1,21 +1,7 @@
 #include "raylib.h"
-//#include "controller.h"
 #include "simulation/controller/controller.h"
 
-
-//terminal kommandoer
-/*
-build projekt med: g++ -std=c++17 -o ant_simulation.exe src/main.cpp src/simulation/ant/*.cpp src/simulation/ant_system/*.cpp 
-src/simulation/map_system/*.cpp src/simulation/controller/*.cpp src/simulation/cell/*.cpp
--Isrc/simulation -I C:/raylib/raylib/src -lraylib -lopengl32 -lgdi32 -lwinmm
-*/
-// kør projekt med: ./ant_simulation.exe i terminal
-
-
-
 const int CELL_SIZE = 10;
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 800;
 
 
 /**
@@ -38,7 +24,7 @@ const int SCREEN_HEIGHT = 800;
 int main(void)
 {
 
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Ant Simulation");
+    InitWindow(MapSystem::WIDTH * CELL_SIZE, MapSystem::HEIGHT * CELL_SIZE, "Ant Simulation");
     SetTargetFPS(120);
 
     Controller sim;
